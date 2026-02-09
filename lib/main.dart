@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:read_tracking/screen/homeScreen.dart';
+import 'package:read_tracking/screen/favorite_file.dart';
+import 'package:read_tracking/screen/safeFile.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -29,56 +33,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // so this current index holds the value from the ontap index
-  int _currentInedx = 0 ;
+  int _currentInedx = 0;
+
   final List<Widget> _Screens = [
-    Scaffold(
-     body: Column(
-  children: [
-    Row(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              // decoration: BoxDecoration(
-              //   borderRadius: BorderRadius.circular(20),
-              //   border: Border.all(color: Theme.of(context).primaryColor),
-              decoration: InputDecoration(
-                label: Text("Search for a book"),
-                hintText: "enter a book",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
+    Homescreen(),
 
-                // filled: true,
-                // fillColor: Colors.red
-              ),
-                //  TextButton(onPressed: () {},
-                //   child: Icon(Icons.search),
-                // )
-              // ),
-            ),
-
-          ),
-        ),
-        Column(
-          children: [
-            Row(
-
-            )
-          ],
-        )
-      ],
-    ),
-  ],
-),
-
-    ),
-    Text("save"),
-    Text("favorite"),
-
-
+    FavoriteFile(),
+    Safefile(),
+    //
   ];
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -92,37 +56,33 @@ class _MyHomePageState extends State<MyHomePage> {
       body: _Screens[_currentInedx],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          // currentIndex this is the names prameter along with the botton navigation and we strored the current index
-          // to flutter know the active page
-          currentIndex :  _currentInedx,
-          items: <BottomNavigationBarItem>[
-
-
-        BottomNavigationBarItem(icon: Icon(Icons.home) , label: "home"),
-        BottomNavigationBarItem(icon: Icon(Icons.save) , label:  "save"),
-        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "favorite"),
-
-      ],
-         //  selectedItemColor means the active color
-         //  unselectedItemColor also means those who are the unactive
-         selectedItemColor: Theme.of(context).primaryColorDark,
-         unselectedItemColor: Theme.of(context).colorScheme.onInverseSurface,
-         onTap:  (value){
-            print(value);
-        setState(() {
-          // so the current index holds to the index value of the current page
-          _currentInedx = value;
-        });
-        print(_currentInedx);
-    },
+        // currentIndex this is the names prameter along with the botton navigation and we strored the current index
+        // to flutter know the active page
+        currentIndex: _currentInedx,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+          BottomNavigationBarItem(icon: Icon(Icons.save), label: "save"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "favorite",
+          ),
+        ],
+        //  selectedItemColor means the active color
+        //  unselectedItemColor also means those who are the unactive
+        selectedItemColor: Theme.of(context).primaryColorDark,
+        unselectedItemColor: Theme.of(context).colorScheme.onInverseSurface,
+        onTap: (value) {
+          print(value);
+          setState(() {
+            // so the current index holds to the index value of the current page
+            _currentInedx = value;
+          });
+          print(_currentInedx);
+        },
       ),
-
-
     );
   }
+
   //
   // Widget icon(IconData home) {}
 }
-
-
-
