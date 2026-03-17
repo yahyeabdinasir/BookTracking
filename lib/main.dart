@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:read_tracking/screen/homeScreen.dart';
 import 'package:read_tracking/screen/favorite_file.dart';
 import 'package:read_tracking/screen/safeFile.dart';
+import 'package:read_tracking/service/googleApi.dart';
 
 
 void main() {
@@ -34,6 +35,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // so this current index holds the value from the ontap index
   int _currentInedx = 0;
+  Googleapi Network = Googleapi();
+
+
+
+  void SearchBooks(String query ) async{
+    var data = await Network.SearchBooks(query) ;
+  }
 
   final List<Widget> _Screens = [
     Homescreen(),
@@ -42,6 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
     Safefile(),
     //
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    SearchBooks("flutter");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

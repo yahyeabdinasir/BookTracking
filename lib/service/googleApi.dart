@@ -7,28 +7,28 @@ class Googleapi {
   static const String _baseUrl = 'https://www.googleapis.com/books/v1/volumes';
 
 
-  Future<List<Books?>> SearchBooks(String Query) async {
-    
-    var url = Uri.parse("$_baseUrl?q=Query");
+  // Future<List<Books?>> SearchBooks(String Query) async {
+  Future<List<Books>?> SearchBooks(String Query) async {
+    var url = Uri.parse("$_baseUrl?q=$Query");
     var response = await http.get(url);
     print(response.statusCode);
 
 
-  if (response.statusCode == 200) {
-  final data = jsonDecode(response.body);
-  if (data["items"] != null && data["items"] is List ){
-    List<Books> books = (data['items'] as List<dynamic>).map((books) => Books.fromjson( books as  Map<String , dynamic>)).toList();
-    return books;
-
+    if (response.statusCode == 200) {
+      var  data = jsonDecode(response.body);
+      print("this si the data   , ${data['totalItems']}");
+      if (data["items"] != null && data["items"] is List) {
+        final items = data['items'] as List;
+        List<Books> books = items.map((books) => Books.fromjson(books as Map<String , dynamic>)).toList();
+        print("this si the data  from if   , ${data}");
+        return books;
+      }
+      else{
+        return [];
+      }
+    }
+    else {}
   }
-  print("this si the data   , ${data}");
 
-  }
-  throw Exception('Failed to load books');
-  }
-
-  }
-
-
-
+}
 
