@@ -1,5 +1,5 @@
 class Books {
-  final String id;
+  final int id;
   final String title;
   final List<String> authors;
   final String description;
