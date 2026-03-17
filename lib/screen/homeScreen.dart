@@ -17,6 +17,8 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  // int? get itemCount => null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,18 +58,14 @@ class _MyHomeState extends State<MyHome> {
                       ),
                     ),
                   ),
-                  //
-                  // Icon(Icons.search),
-                  // Column(
-                  //   children: [
-                  //     Row(
-                  //
-                  //     )
-                  //   ],
-                  // )
+
                 ],
               ),
+
             ),
+            // ListView.builder(
+            //   itemCount: itemCount,
+            // )
           ],
         ));
     // },

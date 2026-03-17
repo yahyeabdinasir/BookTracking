@@ -1,10 +1,8 @@
 class Books {
   final int id;
   final String title;
-
   final List<String> authors;
   final String description;
-
   final String thubnail;
 
   Books({

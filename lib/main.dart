@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: theme.colorScheme.inversePrimary,
         title: Text("A.Reader"),
       ),
 
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // currentIndex this is the names prameter along with the botton navigation and we strored the current index
         // to flutter know the active page
-        currentIndex: _currentInedx,
+       currentIndex: _currentInedx,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
           BottomNavigationBarItem(icon: Icon(Icons.save), label: "save"),
