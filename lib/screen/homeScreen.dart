@@ -28,11 +28,11 @@ class _MyHomeState extends State<MyHome> {
 
   void SearchBook(String Query) async {
     try {
-      List<Books>? result = await Network.SearchBooks(Query);
+      List<Books>? _result = await Network.SearchBooks(Query);
 
 
       setState(() {
-        data = result ?? [];
+        data = _result ?? [];
       });
 
       for (var eachitem in data!) {
@@ -80,7 +80,7 @@ class _MyHomeState extends State<MyHome> {
                     },
                   ),
                 ),
-                onSubmitted: (query) => SearchBook(query),
+                onSubmitted: (Querys) => SearchBook(Querys),
               ),
              ),
           Expanded(
