@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:read_tracking/models/books.dart';
 import 'package:read_tracking/screen/homeScreen.dart';
 import 'package:read_tracking/screen/favorite_file.dart';
 import 'package:read_tracking/screen/safeFile.dart';
@@ -40,8 +41,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   void SearchBooks(String query ) async{
-    var data = await Network.SearchBooks(query) ;
-  }
+    try{
+      List<Books>? data = await Network.SearchBooks(query) ;
+
+      for (var eachBook in data!){
+        print(eachBook.title);
+      }
+      // print(data);
+      // print(" this is the data from the main dart  , ${data.toString()}");
+    }
+    catch  (e){
+     print("something went wrong   , $e");
+    }
+}
+
+
+  // void SearchBooks(String query) async {
+  //   try {
+  //     List<Books>? data = await Network.SearchBooks(query);
+  //     print("This is the data from main.dart: ${data?.length} books");
+  //   } catch (e) {
+  //     print("Something went wrong: $e");
+  //   }
+  // }
 
   final List<Widget> _Screens = [
     Homescreen(),

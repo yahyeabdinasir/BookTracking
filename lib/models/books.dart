@@ -1,15 +1,15 @@
 class Books {
-  final int id;
+  final String id;
   final String title;
   final List<String> authors;
   final String description;
-  final String thubnail;
+  final String thumbmail;
 
   Books({
     required this.id,
     required this.title,
     required this.authors,
-    required this.thubnail,
+    required this.thumbmail,
     required this.description,
   });
 
@@ -25,7 +25,7 @@ class Books {
               .toList() ??
           [],
       description: volumeInfo['description'] ?? '',
-      thubnail: volumeInfo['imageLinks']?['thubnail'] ?? '',
+      thumbmail: volumeInfo['imageLinks']?['thubnail'] ?? '',
     );
   }
 
@@ -35,7 +35,14 @@ class Books {
       'title': title,
       'authors': authors,
       'description': description,
-      'thubnail': thubnail,
+      'thubnail': thumbmail,
     };
   }
+  @override
+  String toString(){
+    return this.title;
+  }
 }
+
+
+
