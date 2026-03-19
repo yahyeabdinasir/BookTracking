@@ -15,17 +15,20 @@ class Books {
 
   factory Books.fromjson(Map<String, dynamic> json) {
     final volumeInfo = json['volumeInfo'] ?? {};
+    final imageLinks = volumeInfo['imageLinks'] as Map<String, dynamic>?;
 
     return Books(
       id: json['id'] ?? '',
       title: volumeInfo['title'] ?? "no title",
-      authors:
-          (volumeInfo['authors'] as List<dynamic>?)
+      authors: (volumeInfo['authors'] as List<dynamic>?)
               ?.map((toElement) => toElement.toString())
               .toList() ??
           [],
       description: volumeInfo['description'] ?? '',
-      thumbmail: volumeInfo['imageLinks']?['thubnail'] ?? '',
+      // Google Books returns `imageLinks.thumbnail` (and sometimes `smallThumbnail`).
+      // Your previous code used a misspelled key (`thubnail`) which results in an empty URL.
+      thumbmail: (imageLinks?['thumbnail'] ?? imageLinks?['smallThumbnail'] ?? '')
+          .toString(),
     );
   }
 
@@ -35,7 +38,7 @@ class Books {
       'title': title,
       'authors': authors,
       'description': description,
-      'thubnail': thumbmail,
+      'thumbnail': thumbmail,
     };
   }
   @override

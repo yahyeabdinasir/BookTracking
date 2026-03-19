@@ -19,7 +19,7 @@ class Googleapi {
       print("this si the data   , ${data['totalItems']}");
       if (data["items"] != null) {
         final items = data['items'] as List<dynamic>;
-        List<Books> books = items.map((books) => Books.fromjson(books as Map<String , dynamic>)).toList();
+        List<Books> books = items.map((books) => Books.fromjson(books)).toList();
         print("this si the data  from if   , ${data}");
         return books;
       }
