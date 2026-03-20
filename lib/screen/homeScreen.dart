@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:read_tracking/models/books.dart';
+import 'package:read_tracking/screen/bookDetails.dart';
 import 'package:read_tracking/service/googleApi.dart';
 
 class Homescreen extends StatelessWidget {
@@ -133,25 +134,43 @@ class _MyHomeState extends State<MyHome> {
                   child: Column(
 
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsetsGeometry.all(10),
-                        child: SizedBox(
-                          height: 120,
-                          width: double.infinity,
-                          child: Image.network(imageUrl,
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, progress) {
-                              if (progress == null) return child;
-                              return const Center(
-                                child: CircularProgressIndicator(strokeWidth: 2),
-                              );
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Center(
-                                child: Icon(Icons.broken_image, size: 40),
-                              );
-                            },
-                          )
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                          //  navigate to the details screem
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => DetailsScreen()
+                            ),);
+
+
+
+
+                          });
+                          print("hello there this si the gesture  ");
+                  },
+
+                        child: Padding(
+                          padding: const EdgeInsetsGeometry.all(15),
+                          child: Card(
+                            child: SizedBox(
+                              height: 120,
+                              width: double.infinity,
+                              child: Image.network(imageUrl,
+                                fit: BoxFit.fill,
+                                loadingBuilder: (context, child, progress) {
+                                  if (progress == null) return child;
+                                  return const Center(
+                                    child: CircularProgressIndicator(strokeWidth: 2),
+                                  );
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Center(
+                                    child: Icon(Icons.broken_image, size: 40),
+                                  );
+                                },
+                              )
+                            ),
+                          ),
                         ),
                       ),
                       Text(book.title,
