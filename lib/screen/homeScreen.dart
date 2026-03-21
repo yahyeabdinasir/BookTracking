@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:read_tracking/models/books.dart';
 import 'package:read_tracking/screen/bookDetails.dart';
 import 'package:read_tracking/service/googleApi.dart';
+import 'package:read_tracking/utils/bookargumentsddetails.dart';
 
 class Homescreen extends StatelessWidget {
   const Homescreen({super.key});
@@ -137,10 +138,13 @@ class _MyHomeState extends State<MyHome> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                          //  navigate to the details screem
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => DetailsScreen()
-                            ),);
+                          //  navigate to the details screen throght passing the route of the screen
+                          //   Navigator.push(context, MaterialPageRoute(
+                          //       builder: (context) => DetailsScreen()
+                          //   ),);
+
+                            // Navigator.push(context, the name of the route from the main dart )
+                            Navigator.pushNamed(context, '/detailScreen' , arguments: BookDetailsArguments(bookItems: book));
 
 
 

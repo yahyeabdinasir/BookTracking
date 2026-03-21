@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:read_tracking/models/books.dart';
+import 'package:read_tracking/screen/bookDetails.dart';
 import 'package:read_tracking/screen/homeScreen.dart';
 import 'package:read_tracking/screen/favorite_file.dart';
 import 'package:read_tracking/screen/safeFile.dart';
@@ -18,6 +19,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+
+      routes: {
+        "/homeScreen1" : (context) => Homescreen(),
+        '/safeFile' :( context) {
+          return Safefile();
+        },
+        '/favorite' : (context) => FavoriteFile(),
+        '/detailScreen' : (context) => DetailsScreen(),
+
+
+      },
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.orangeAccent)),
       debugShowCheckedModeBanner: false,
@@ -65,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //   }
   // }
 
+
   final List<Widget> _Screens = [
     Homescreen(),
 
@@ -84,7 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
+
     return Scaffold(
+
+
       appBar: AppBar(
         backgroundColor: theme.colorScheme.inversePrimary,
         title: Text("A.Reader"),

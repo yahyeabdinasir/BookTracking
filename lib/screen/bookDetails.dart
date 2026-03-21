@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:read_tracking/models/books.dart';
+import 'package:read_tracking/utils/bookargumentsddetails.dart';
 
 
 
@@ -11,12 +12,18 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+
+
+
+
   @override
   Widget build(BuildContext context) {
+     final args = ModalRoute.of(context)?.settings.arguments as BookDetailsArguments;
+     final Books book = args.bookItems;
 
     return  Scaffold(
       appBar: AppBar(
-        title: Text("hello there"),
+        title: Text(book.title),
          ),
 
     );
