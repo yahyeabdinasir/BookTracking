@@ -49,7 +49,7 @@ class GridViewWidget extends StatelessWidget {
                   },
 
                   child: Padding(
-                    padding: const EdgeInsetsGeometry.all(15),
+                    padding: const EdgeInsets.all(10),
                     child: Card(
                       child: SizedBox(
                         width: double.infinity,
@@ -58,22 +58,40 @@ class GridViewWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(
-                  book.title,
-                  style: Theme.of(context).textTheme.titleSmall,
-                  overflow: TextOverflow.ellipsis,
+                  Flexible(
+                  // padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    book.title,
+                    style: Theme.of(context).textTheme.titleSmall,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                 ),
-                Text(
-                  book.authors.isNotEmpty
-                      ? book.authors.join(" & ")
-                      : "No author",
-                  style: Theme.of(context).textTheme.titleMedium,
-                  //  so this is the properties that we use to make clip and fit the text when there is the overflow of the text
-                  //  so that is how we can use them  so the elipse makes shorter the larget text along with the ..
-                  //  while the clip attribute also make them fit  the entire  text without overflow
-                  //  and also the visible and fade attribute  they put the top of it each text without the overflow
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
+                // Padding(
+                //   padding: const EdgeInsets.all(10),
+                   Flexible(
+                    // padding: const EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 20,
+                        child: Text(
+                          book.authors.isNotEmpty
+                              ? book.authors.join(" & ")
+                              : "No author",
+                          style: Theme.of(context).textTheme.titleMedium,
+                          //  so this is the properties that we use to make clip and fit the text when there is the overflow of the text
+                          //  so that is how we can use them  so the elipse makes shorter the larget text along with the ..
+                          //  while the clip attribute also make them fit  the entire  text without overflow
+                          //  and also the visible and fade attribute  they put the top of it each text without the overflow
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+
+                        // ),
+                                          ),
+                      ),
+                    ),
                 ),
               ],
             ),

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
 
       routes: {
-        "/homeScreen1" : (context) => Homescreen(),
+        "/homeScreen" : (context) => Homescreen(),
         '/safeFile' :( context) {
           return Safefile();
         },
@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void SearchBooks(String query ) async{
     try{
       List<Books>? data = await Network.SearchBooks(query) ;
-
+      // iterating over the titiles
       for (var eachBook in data!){
         print(eachBook.title);
       }
@@ -84,15 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     FavoriteFile(),
     Safefile(),
-    //
   ];
-  //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   SearchBooks("flutter");
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedItemColor: Theme.of(context).primaryColorDark,
         unselectedItemColor: Theme.of(context).colorScheme.onInverseSurface,
         onTap: (value) {
-          print(value);
           setState(() {
             // so the current index holds to the index value of the current page
             _currentInedx = value;
