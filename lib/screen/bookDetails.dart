@@ -58,30 +58,42 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
             ),
 
-            Row(
+            // Row(
               // crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsetsGeometry.all(10),
-                  child: Row(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // children: <Widget>[
+                // Padding(
+                //   padding: EdgeInsetsGeometry.all(10),
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+
                     children: [
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.pinkAccent,
-                        size: 50,
-                        fontWeight: FontWeight.bold,
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.favorite),
+                        label: Text("Favorite" , style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20),) ,
+                        onPressed: () {
+                          print("hello yahye how is your day going on ");
+
+                      },
+
 
                       ),
-                      SizedBox(width: 30,),
+                      SizedBox(width: 40,),
 
-                      Icon(Icons.save, color: Colors.pinkAccent, size: 50,
-                        fontWeight: FontWeight.bold,
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.save),
+                        label: Text("Save" , style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20),) ,
+                        onPressed: () {
+                          print("hello yahye how is your day going on ");
+
+                        },
+
+
                       ),
                     ],
-                  ),
-                ),
-              ],
+                  // ),
+                // ),
+              // ],
             ),
             Padding(
               padding: EdgeInsetsGeometry.all(10),
