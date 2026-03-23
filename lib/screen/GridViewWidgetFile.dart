@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:read_tracking/models/books.dart';
 import 'package:read_tracking/utils/bookargumentsddetails.dart';
@@ -53,7 +55,10 @@ class GridViewWidget extends StatelessWidget {
                     child: Card(
                       child: SizedBox(
                         width: double.infinity,
-                        child: Image.network(book.thumbmail, fit: BoxFit.fill),
+                        height: 200,
+                        child: Image.network(book.thumbmail, fit: BoxFit.cover ,
+                        scale: 1.2,
+                        ),
                       ),
                     ),
                   ),

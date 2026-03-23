@@ -13,10 +13,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final args =
-    ModalRoute
-        .of(context)
-        ?.settings
-        .arguments as BookDetailsArguments;
+        ModalRoute.of(context)?.settings.arguments as BookDetailsArguments;
     final Books book = args.bookItems;
 
     return Scaffold(
@@ -30,88 +27,109 @@ class _DetailsScreenState extends State<DetailsScreen> {
               Padding(
                 padding: const EdgeInsets.all(30.0),
 
-
                 child: Image.network(book.thumbmail, fit: BoxFit.fill),
               ),
             Padding(
-
               padding: EdgeInsetsGeometry.all(10),
 
               child: Center(
                 child: Column(
                   children: <Widget>[
-                    Text(book.title.trim(),
+                    Text(
+                      book.title.trim(),
                       style: TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.normal),
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
-                    SizedBox(height: 12,),
-                    Text(book.authors.isNotEmpty
-                        ? book.authors.join(" & ")
-                        : "no author",
+                    SizedBox(height: 12),
+                    Text(
+                      book.authors.isNotEmpty
+                          ? book.authors.join(" & ")
+                          : "no author",
                       style: TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold),
-
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
               ),
-
             ),
 
             // Row(
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.center,
-              // children: <Widget>[
-                // Padding(
-                //   padding: EdgeInsetsGeometry.all(10),
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // children: <Widget>[
+            // Padding(
+            //   padding: EdgeInsetsGeometry.all(10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                    children: [
-                      ElevatedButton.icon(
-                        icon: Icon(Icons.favorite),
-                        label: Text("Favorite" , style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20),) ,
-                        onPressed: () {
-                          print("hello yahye how is your day going on ");
+              children: [
+                ElevatedButton.icon(
+                  icon: Icon(Icons.favorite),
+                  label: Text(
+                    "Favorite",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  onPressed: () {
+                    print("hello yahye how is your day going on ");
+                  },
+                ),
+                SizedBox(width: 40),
 
-                      },
-
-
-                      ),
-                      SizedBox(width: 40,),
-
-                      ElevatedButton.icon(
-                        icon: Icon(Icons.save),
-                        label: Text("Save" , style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20),) ,
-                        onPressed: () {
-                          print("hello yahye how is your day going on ");
-
-                        },
-
-
-                      ),
-                    ],
-                  // ),
-                // ),
+                ElevatedButton.icon(
+                  icon: Icon(Icons.save),
+                  label: Text(
+                    "Save",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  onPressed: () {
+                    print("hello yahye how is your day going on ");
+                  },
+                ),
+              ],
+              // ),
+              // ),
               // ],
             ),
-            Padding(
-              padding: EdgeInsetsGeometry.all(10),
-              child: Column(
-                  children: [
-                    Text("Description" , style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
-                  SizedBox(height: 20,),
 
-                  Text(book.description,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headlineLarge,
-                  ),
-
-                  ]
-              ),
+            SizedBox(height: 7,),
+             Text("Description" ,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
+
+            Container(
+              // color: Theme.of(context).colorScheme.secondary,
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
+               decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                 borderRadius: BorderRadius.circular(10),
+                 border: Border.all(
+                   color: Theme.of(context).colorScheme.primary,     ),
+
+
+
+
+
+            ),
+
+              child: Text(book.description,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+
+
+
+
+
+
+
+
+
+              ),
+
           ],
         ),
       ),
