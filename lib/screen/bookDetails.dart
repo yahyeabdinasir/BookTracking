@@ -23,11 +23,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (book.thumbmail.isNotEmpty)
+            if (book.imageLinks['thumbnail']!.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.all(30.0),
 
-                child: Image.network(book.thumbmail, fit: BoxFit.fill),
+                child: Image.network(book.imageLinks['thumbnail']!, fit: BoxFit.fill),
               ),
             Padding(
               padding: EdgeInsetsGeometry.all(10),

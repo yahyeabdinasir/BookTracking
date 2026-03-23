@@ -56,7 +56,7 @@ class GridViewWidget extends StatelessWidget {
                       child: SizedBox(
                         width: double.infinity,
                         height: 200,
-                        child: Image.network(book.thumbmail, fit: BoxFit.cover ,
+                        child: Image.network(book.imageLinks['thumbnail']!, fit: BoxFit.cover ,
                         scale: 1.2,
                         ),
                       ),

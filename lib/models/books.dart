@@ -1,51 +1,111 @@
+import 'dart:convert';
+
 class Books {
   final String id;
   final String title;
   final List<String> authors;
+  final String publisher;
+  final String publishedDate;
+  final  bool isFavorite;
   final String description;
-  final String thumbmail;
+  final Map<String, String> industryIdentifiers;
+  final int pageCount;
+  final String language;
+  final Map<String, String> imageLinks;
+  final String previewLink;
+  final String infoLink;
 
   Books({
     required this.id,
     required this.title,
     required this.authors,
-    required this.thumbmail,
+    required this.publisher,
+    required this.publishedDate,
     required this.description,
+    required this.industryIdentifiers,
+    required this.pageCount,
+    this.isFavorite = false,
+    required this.language,
+    required this.imageLinks,
+    required this.previewLink,
+    required this.infoLink,
   });
 
-  factory Books.fromjson(Map<String, dynamic> json) {
-    final volumeInfo = json['volumeInfo'] ?? {};
-    final imageLinks = volumeInfo['imageLinks'] as Map<String, dynamic>?;
-
+  factory Books.fromJson(Map<String, dynamic> json) {
+    var volumeInfo = json['volumeInfo'] ?? {};
     return Books(
       id: json['id'] ?? '',
-      title: volumeInfo['title'] ?? "no title",
-      authors: (volumeInfo['authors'] as List<dynamic>?)
-              ?.map((toElement) => toElement.toString())
-              .toList() ??
-          [],
+      title: volumeInfo['title'] ?? '',
+      authors: (volumeInfo['authors'] as List<dynamic>? ?? [])
+          .map((author) => author.toString())
+          .toList(),
+      publisher: volumeInfo['publisher'] ?? '',
+      publishedDate: volumeInfo['publishedDate'] ?? '',
       description: volumeInfo['description'] ?? '',
-      // Google Books returns `imageLinks.thumbnail` (and sometimes `smallThumbnail`).
-      // Your previous code used a misspelled key (`thubnail`) which results in an empty URL.
-      thumbmail: (imageLinks?['thumbnail'] ?? imageLinks?['smallThumbnail'] ?? '')
-          .toString(),
+      industryIdentifiers: {
+        for (var item
+        in volumeInfo['industryIdentifiers'] as List<dynamic>? ?? [])
+          item['type'] as String? ?? '': item['identifier'] as String? ?? ''
+      },
+      pageCount: volumeInfo['pageCount'] ?? 0,
+      language: volumeInfo['language'] ?? '',
+      imageLinks: (volumeInfo['imageLinks'] as Map<String, dynamic>? ?? {})
+          .map((key, value) => MapEntry(key, value.toString())),
+      previewLink: volumeInfo['previewLink'] ?? '',
+      infoLink: volumeInfo['infoLink'] ?? '',
     );
   }
 
-  Map<String, dynamic> tojson() {
+  // for saving to db
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'title': title,
-      'authors': authors,
+      'authors': json.encode(authors), // Serialize list to a JSON string
+      'publisher': publisher,
+      'publishedDate': publishedDate,
       'description': description,
-      'thumbnail': thumbmail,
+      'favorite': isFavorite ? 1 : 0,
+      'industryIdentifiers':
+      json.encode(industryIdentifiers), // Serialize map to a JSON string
+      'pageCount': pageCount,
+      'language': language,
+      'imageLinks': json.encode(imageLinks), // Serialize map to a JSON string
+      'previewLink': previewLink,
+      'infoLink': infoLink,
     };
   }
+
+  // for loading from db
+  factory Books.fromJsonDatabase(Map<String, dynamic> jsonObject) {
+    return Books(
+      id: jsonObject['id'] as String,
+      title: jsonObject['title'] as String,
+      authors: jsonObject['authors'] is String
+          ? (json.decode(jsonObject['authors']) as List)
+          .map((e) => e as String)
+          .toList()
+          : [],
+      publisher: jsonObject['publisher'] as String,
+      publishedDate: jsonObject['publishedDate'] as String,
+      description: jsonObject['description'] as String,
+      industryIdentifiers: jsonObject['industryIdentifiers'] is String
+          ? Map.from(json.decode(jsonObject['industryIdentifiers']))
+          : {},
+      pageCount: jsonObject['pageCount'] as int,
+      language: jsonObject['language'] as String,
+      imageLinks: jsonObject['imageLinks'] is String
+          ? Map.from(json.decode(jsonObject['imageLinks']))
+          : {},
+      isFavorite: (jsonObject['favorite'] as int) == 1,
+      previewLink: jsonObject['previewLink'] as String,
+      infoLink: jsonObject['infoLink'] as String,
+    );
+  }
+
   @override
-  String toString(){
-    return this.title;
+  String toString() {
+    // TODO: implement toString
+    return "Books: ${this.title} isFavorite: ${isFavorite}";
   }
 }
-
-
-
