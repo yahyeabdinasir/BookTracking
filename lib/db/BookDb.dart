@@ -1,14 +1,16 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:google_books_api/google_books_api.dart';
+import 'package:read_tracking/models/books.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 
-class BookDataBase{
+class BookDataBase {
 
-  static const  _DatabaseName = "bookDatabase.db" ;
-  static const _Databseversion = '1.0';
+
+  static const _DatabaseName = "bookDatabase.db";
+
+  static const _Databseversion = 1;
   static const _TableName = "Books";
 
 
@@ -19,26 +21,57 @@ class BookDataBase{
   static final BookDataBase instance = BookDataBase._privateConstructor();
 
 
-
   static Database? _database;
 
-  Future<Database> get = database  async {
-  _database?? = await initDatabase();
-  return _database!
+  Future<Database>  get database async {
+    if (_database != null) return _database!;
+    _database = await _initDatabase();
+    return _database!;
+  }
+
+  //  this is used to create the database
+  Future<Database> _initDatabase() async {
+    String path = join(await getDatabasesPath(), _DatabaseName);
+
+    return await openDatabase(
+        path,
+        version: _Databseversion,
+        onCreate: _oncreate);
+  }
+
+//  abuur table database that called table name
+Future _oncreate(Database db, int version) async {
+  await db.execute('''
+      CREATE TABLE $_TableName (
+        id TEXT PRIMARY KEY,
+        title TEXT NOT NULL,
+        authors TEXT NOT NULL,
+        favorite INTEGER DEFAULT 0,
+        publisher TEXT,
+        publishedDate TEXT,
+        description TEXT,
+        industryIdentifiers TEXT,
+        pageCount INTEGER,
+        language TEXT,
+        imageLinks TEXT,
+        previewLink TEXT,
+        infoLink TEXT
+      )
+    ''');
 }
 
-
-initDatabase() async {
-    String path = join(getDatabasesPath(),  _DatabaseName){
-      return  await  openDatabase( path , version:  _Databseversion , onCreate: oncreate) ;
-    }
+//  insert book into the database 
+Future<int> Insert (Book book) async{
+    Database db =  await instance.database;
+    return  await db.insert(_TableName , book.toJson());
 }
 
-Future oncreate(Database db , int  version) async {
-
-
-}
-
-
-
+//  read books from the database 
+Future<List<Books>> FetchBooks() async {
+    Database db = await instance.database;
+    var book =  await db.query(_TableName);
+    return book.isNotEmpty ?
+        book.map((bookItem) => Books.fromJsonDatabase(bookItem)).toList()
+        : [ ] ;
+  }
 }
