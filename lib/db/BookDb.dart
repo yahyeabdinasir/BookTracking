@@ -61,7 +61,7 @@ Future _oncreate(Database db, int version) async {
 }
 
 //  insert book into the database 
-Future<int> Insert (Book book) async{
+Future<int> Insert (Books book) async{
     Database db =  await instance.database;
     return  await db.insert(_TableName , book.toJson());
 }
