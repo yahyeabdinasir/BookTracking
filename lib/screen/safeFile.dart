@@ -44,7 +44,8 @@ class _SafefileState extends State<Safefile> {
               print("this is the curent index from the save file  $index");
               Books books = snapchat.data![index];
               print("Fetched books: ${snapchat.data}");
-              return ListTile(
+              return Card(
+                child:listTtitle
 
                 title: Text(books.title),
               );
