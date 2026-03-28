@@ -45,7 +45,7 @@ class _SafefileState extends State<Safefile> {
                   print("Fetched books: ${snapchat.data}");
 
                   return Card(
-                    color: Colors.grey,
+                    color: Theme.of(context).secondaryHeaderColor,
                     shape: Border.all(color: Colors.grey.shade300, width: 8.0),
 
                     child: ListTile(
