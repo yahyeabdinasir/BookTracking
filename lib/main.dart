@@ -81,9 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _Screens = [
     Homescreen(),
+    Safefile(),
 
     FavoriteFile(),
-    Safefile(),
+
   ];
 
   @override
