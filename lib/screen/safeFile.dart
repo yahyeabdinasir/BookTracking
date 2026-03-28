@@ -42,7 +42,7 @@ class _SafefileState extends State<Safefile> {
                 itemBuilder: (context, index) {
                   print("this is the curent index from the save file  $index");
                   Books books = snapchat.data![index];
-                  print("Fetched books: ${snapchat.data}");
+                  print("Fetched books: ${snapchat.data![index]}");
 
                   return Card(
                     color: Theme.of(context).secondaryHeaderColor,
@@ -50,7 +50,21 @@ class _SafefileState extends State<Safefile> {
 
                     child: ListTile(
                       title: Text(books.title, style: TextStyle(fontSize: 20)),
-                      trailing: Icon(Icons.delete),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () async {
+                          await BookDataBase.instance
+                              .deleteBook(books.id)
+                              .then(
+                                (value) => {
+                                  print(
+                                    "this is the icon that has been delted  $value",
+                                  ),
+                                  setState(() {}),
+                                },
+                              );
+                        },
+                      ),
                       leading: Image.network(
                         width: 60,
 
@@ -71,7 +85,13 @@ class _SafefileState extends State<Safefile> {
 
                           ElevatedButton.icon(
                             onPressed: () async {
-                              print("hello yahye ");
+                              await BookDataBase.instance
+                                  .ToggleFavorite(books.id, books.isFavorite)
+                                  .then(
+                                    (onValue) => print(
+                                      "this is the value of the favorite $onValue",
+                                    ),
+                                  );
                             },
                             icon: Icon(Icons.favorite),
                             label: Text(" add favorite"),

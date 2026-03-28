@@ -15,10 +15,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final args =
-    ModalRoute
-        .of(context)
-        ?.settings
-        .arguments as BookDetailsArguments;
+        ModalRoute.of(context)?.settings.arguments as BookDetailsArguments;
     final Books book = args.bookItems;
 
     return Scaffold(
@@ -76,21 +73,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
               children: [
                 ElevatedButton.icon(
-                    icon: Icon(Icons.favorite),
-                    label: Text(
-                      "Favorite",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    onPressed: () async {
-                      await BookDataBase.instance.ToggleFavorite(
-                          book.id, book.isFavorite).then(
-                          (value) => print("book value "),
-
-
-
-                      );}
-
+                  icon: Icon(Icons.favorite),
+                  label: Text(
+                    "Favorite",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  onPressed: () async {
+                    await BookDataBase.instance
+                    //  toggle if the book is 0 to the 1 for the gesture detector
+                    .ToggleFavorite(book.id, book.isFavorite);
+                    // .then((value) => print("book value $value"));
+                  },
                 ),
 
                 //     try {
@@ -117,18 +110,21 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     "Save",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
-                  onPressed: () async {}
+                  onPressed: () async {
                     // insert the book via clicking save
-                    // try {
-                    //   int bookInt = await BookDataBase.instance.Insert(book);
-                    //   print('book saved into the databse ${bookInt}');
-                    //   SnackBar snackbar = SnackBar(
-                    //     content: Text("book saved successfully $bookInt"),
-                    //   );
-                    //   ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                    // } catch (e) {
-                    //   print("there is error ${e}");
-                    // }
+                    try {
+                      int bookInt = await BookDataBase.instance.Insert(book);
+                      print('book saved into the databse ${bookInt}');
+                      SnackBar snackbar = SnackBar(
+                        content: Text("book saved successfully $bookInt"),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    } catch (e) {
+                      print("there is error ${e}");
+                    }
+
+                  },
+
 
                 ),
               ],
@@ -140,10 +136,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             SizedBox(height: 7),
             Text(
               "Description",
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headlineLarge,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
 
             Container(
@@ -151,26 +144,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
               margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Theme
-                    .of(context)
-                    .colorScheme
-                    .secondary
-                    .withOpacity(0.2),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: Theme
-                      .of(context)
-                      .colorScheme
-                      .primary,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
 
               child: Text(
                 book.description,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineLarge,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
           ],

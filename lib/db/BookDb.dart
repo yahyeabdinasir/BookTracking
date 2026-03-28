@@ -80,4 +80,14 @@ class BookDataBase {
       whereArgs: [id],
     );
   }
+
+
+  Future<int> deleteBook(String id) async {
+    Database db = await BookDataBase.instance.database;
+    return db.delete(
+        BookDataBase._TableName,
+      where: 'id = ?',
+      whereArgs: [id],
+);
+  }
 }
