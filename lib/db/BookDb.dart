@@ -7,7 +7,10 @@ import 'package:path/path.dart';
 class BookDataBase {
   static const _DatabaseName = "bookDatabase.db";
 
+  //  the version of the database
   static const _Databseversion = 1;
+
+  // table  name of the database
   static const _TableName = "Books";
 
   // It's main purpose is to ensure that only one instance of that class ever exists in the application.
@@ -75,19 +78,28 @@ class BookDataBase {
     return db.update(
       BookDataBase._TableName,
       {'favorite': Isfavorite ? 1 : 0},
-      //  the ud will be dynamic doe the ?
+      //  the id will be dynamic doe the ?
       where: 'id = ?',
       whereArgs: [id],
     );
   }
 
-
   Future<int> deleteBook(String id) async {
     Database db = await BookDataBase.instance.database;
-    return db.delete(
-        BookDataBase._TableName,
-      where: 'id = ?',
-      whereArgs: [id],
-);
+    return db.delete(BookDataBase._TableName, where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<List<Books>> ReadFavoriteBooks() async {
+    Database db = await BookDataBase.instance.database;
+    var isfavorite = await db.query(
+      _TableName,
+      where: 'favorite = ?',
+      whereArgs: [1],
+    );
+    return isfavorite.isNotEmpty
+        ? isfavorite
+              .map((favotiteBooks) => Books.fromJsonDatabase(favotiteBooks))
+              .toList()
+        : [];
   }
 }

@@ -81,7 +81,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   onPressed: () async {
                     await BookDataBase.instance
                     //  toggle if the book is 0 to the 1 for the gesture detector
-                    .ToggleFavorite(book.id, book.isFavorite);
+                    .ToggleFavorite(book.id, !book.isFavorite);
                     // .then((value) => print("book value $value"));
                   },
                 ),
