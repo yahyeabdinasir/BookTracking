@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:read_tracking/db/BookDb.dart';
 import 'package:read_tracking/models/books.dart';
 
@@ -21,20 +23,26 @@ class _FavoriteFileState extends State<FavoriteFile> {
           } else if (snapshot.hasError) {
             return Icon(Icons.error_outline);
           } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+            List<Books> favoriteBooks = snapshot.data!;
             return ListView.builder(
-              itemCount: snapshot.data!.length,
+              itemCount: favoriteBooks.length,
               itemBuilder: (context, index) {
-                print("this is the curent index from the save file  $index");
-                Books facoriteBooks = snapshot.data![index];
+                if (kDebugMode) {
+                  print("this is the curent index from the save file  $index");
+                }
+                Books books = favoriteBooks[index];
                 return Card(
                   child: ListTile(
-                    title: Text(facoriteBooks.title),
+                    title: Text(books.authors.join(" & ")),
                     leading: Image.network(
                       width: 60,
 
-                      facoriteBooks.imageLinks['thumbnail']!,
+                      books.imageLinks['thumbnail']!,
                       fit: BoxFit.fill,
                     ),
+                    trailing: Icon(Icons.favorite , color: Colors.redAccent,),
+
+
                   ),
                 );
               },
