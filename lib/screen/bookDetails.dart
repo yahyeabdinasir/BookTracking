@@ -15,8 +15,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final args =
-        ModalRoute.of(context)?.settings.arguments as BookDetailsArguments;
+    ModalRoute
+        .of(context)
+        ?.settings
+        .arguments as BookDetailsArguments;
     final Books book = args.bookItems;
+    final bool isFromSaveScreen = args.isFromSaveScreen;
 
     return Scaffold(
       appBar: AppBar(title: Text(book.title)),
@@ -69,10 +73,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
             // Padding(
             //   padding: EdgeInsetsGeometry.all(10),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: isFromSaveScreen ? MainAxisAlignment
+                  .center : MainAxisAlignment.center,
 
               children: [
-                ElevatedButton.icon(
+                isFromSaveScreen ? ElevatedButton.icon(
                   icon: Icon(Icons.favorite),
                   label: Text(
                     "Favorite",
@@ -81,10 +86,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   onPressed: () async {
                     await BookDataBase.instance
                     //  toggle if the book is 0 to the 1 for the gesture detector
-                    .ToggleFavorite(book.id, !book.isFavorite);
+                        .ToggleFavorite(book.id, !book.isFavorite);
                     // .then((value) => print("book value $value"));
                   },
-                ),
+                ) : SizedBox(height: 40,),
 
                 //     try {
                 //       await BookDataBase.instance.FetchBooks().then(
@@ -104,7 +109,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 // ),
                 SizedBox(width: 40),
 
-                ElevatedButton.icon(
+                !isFromSaveScreen ? ElevatedButton.icon(
                   icon: Icon(Icons.save),
                   label: Text(
                     "Save",
@@ -122,11 +127,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     } catch (e) {
                       print("there is error ${e}");
                     }
-
                   },
 
 
-                ),
+                ) : SizedBox(height: 40,),
               ],
               // ),
               // ),
@@ -136,7 +140,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
             SizedBox(height: 7),
             Text(
               "Description",
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headlineLarge,
             ),
 
             Container(
@@ -144,16 +151,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
               margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .secondary
+                    .withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme
+                      .of(context)
+                      .colorScheme
+                      .primary,
                 ),
               ),
 
               child: Text(
                 book.description,
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headlineLarge,
               ),
             ),
           ],

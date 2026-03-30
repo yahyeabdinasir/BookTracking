@@ -44,10 +44,10 @@ class GridViewWidget extends StatelessWidget {
                     Navigator.pushNamed(
                       context,
                       '/detailScreen',
-                      arguments: BookDetailsArguments(bookItems: book),
+                      arguments: BookDetailsArguments(bookItems: book , isFromSaveScreen: false),
                     );
 
-                    print("hello there this si the gesture  ");
+                    print("hello there this si the gesture");
                   },
 
                   child: Padding(

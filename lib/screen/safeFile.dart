@@ -46,8 +46,8 @@ class _SafefileState extends State<Safefile> {
 
                   return InkWell(
                     onTap: (){
-                      Navigator.pushNamed(context, '/detailScreen'  ,
-                      arguments: BookDetailsArguments(bookItems: books)
+                      Navigator.pushNamed(context, '/detailScreen',
+                      arguments: BookDetailsArguments(bookItems: books , isFromSaveScreen: true)
                       );
                     },
                     child: Card(
