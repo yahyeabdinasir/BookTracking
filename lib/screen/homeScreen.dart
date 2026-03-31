@@ -55,6 +55,7 @@ class _MyHomeState extends State<MyHome> {
     });
   }
 
+  //  and the user text will dis appear when we open the another tap or the screen
   @override
   void dispose() {
     // TODO: implement dispose

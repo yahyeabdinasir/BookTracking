@@ -4,9 +4,9 @@ import 'package:read_tracking/models/books.dart';
 import 'package:read_tracking/screen/bookDetails.dart';
 import 'package:read_tracking/screen/homeScreen.dart';
 import 'package:read_tracking/screen/favorite_file.dart';
+import 'package:read_tracking/screen/practice.dart';
 import 'package:read_tracking/screen/safeFile.dart';
 import 'package:read_tracking/service/googleApi.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -19,17 +19,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // defining the routes  of the application
       initialRoute: '/',
 
       routes: {
-        "/homeScreen" : (context) => Homescreen(),
-        '/safeFile' :( context) {
-          return Safefile();
-        },
-        '/favorite' : (context) => FavoriteFile(),
-        '/detailScreen' : (context) => DetailsScreen(),
+        "/homeScreen": (context) => Homescreen(),
+        '/safeFile': (context) => Safefile(),
 
-
+        '/favorite': (context) => FavoriteFile(),
+        '/detailScreen': (context) => DetailsScreen(),
+        '/practice' : (context) => Practice()
       },
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.orangeAccent)),
@@ -51,23 +50,19 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentInedx = 0;
   Googleapi Network = Googleapi();
 
-
-
-  void SearchBooks(String query ) async{
-    try{
-      List<Books>? data = await Network.SearchBooks(query) ;
+  void SearchBooks(String query) async {
+    try {
+      List<Books>? data = await Network.SearchBooks(query);
       // iterating over the titiles
-      for (var eachBook in data!){
+      for (var eachBook in data!) {
         print(eachBook.title);
       }
       // print(data);
       // print(" this is the data from the main dart  , ${data.toString()}");
+    } catch (e) {
+      print("something went wrong   , $e");
     }
-    catch  (e){
-     print("something went wrong   , $e");
-    }
-}
-
+  }
 
   // void SearchBooks(String query) async {
   //   try {
@@ -78,23 +73,13 @@ class _MyHomePageState extends State<MyHomePage> {
   //   }
   // }
 
-
-  final List<Widget> _Screens = [
-    Homescreen(),
-    Safefile(),
-
-    FavoriteFile(),
-
-  ];
+  final List<Widget> _Screens = [Homescreen(), Safefile(), FavoriteFile() , Practice()];
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
-
     return Scaffold(
-
-
       appBar: AppBar(
         backgroundColor: theme.colorScheme.inversePrimary,
         title: Text("A.Reader"),
@@ -105,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // currentIndex this is the names prameter along with the botton navigation and we strored the current index
         // to flutter know the active page
-       currentIndex: _currentInedx,
+        currentIndex: _currentInedx,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
           BottomNavigationBarItem(icon: Icon(Icons.save), label: "save"),
@@ -113,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.favorite),
             label: "favorite",
           ),
+          BottomNavigationBarItem(icon: Icon(Icons.face) , label: "play")
         ],
         //  selectedItemColor means the active color
         //  unselectedItemColor also means those who are the unactive
