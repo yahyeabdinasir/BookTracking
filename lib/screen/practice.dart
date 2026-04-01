@@ -13,6 +13,7 @@ class _PracticeState extends State<Practice> {
   final emaiController = TextEditingController();
   final passwordController = TextEditingController();
   bool isHidden = true;
+  String SelectedItems = "female";
 
   void SubmitFrom() {
     if (_formkey.currentState!.validate()) {
@@ -29,10 +30,7 @@ class _PracticeState extends State<Practice> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text("flutter form desing"),
-        ),
+        title: Padding(padding: const EdgeInsets.all(20)),
         centerTitle: true,
         // backgroundColor: Theme.of(context).highlightColor,
       ),
@@ -47,12 +45,32 @@ class _PracticeState extends State<Practice> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: 30),
+                Icon(Icons.calendar_today, size: 80, color: Colors.blue),
+                SizedBox(height: 20),
+
+                Text("Welcome Back",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                    textAlign: TextAlign.center
+
+                ),
+                SizedBox(height: 55),
+
+
                 TextFormField(
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                  ),
                   controller: nameController,
 
                   decoration: InputDecoration(
-                    suffix: Icon(Icons.person),
-                    labelText: "Name",
+                    prefixIcon: Icon(Icons.message),
+                    hintText: "Enter the name",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
 
                   validator: (value) {
@@ -62,13 +80,25 @@ class _PracticeState extends State<Practice> {
                     return null;
                   },
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
                 TextFormField(
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                   controller: emaiController,
                   decoration: InputDecoration(
-                    suffix: Icon(Icons.email),
-                    labelText: "input your email address",
+                    prefixIcon: Icon(Icons.email),
+                    hintText: "Enter the emai",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Colors.red,
+                      )
+                    ),
                   ),
+
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "email is required";
@@ -79,14 +109,23 @@ class _PracticeState extends State<Practice> {
                 SizedBox(height: 10),
 
                 TextFormField(
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                   // making the password invisible
                   obscureText: isHidden,
                   controller: passwordController,
                   decoration: InputDecoration(
-                    suffix: IconButton(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Icon(Icons.lock),
+                    suffixIcon: IconButton(
                       icon: Icon(
                         isHidden ? Icons.visibility : Icons.visibility_off,
                       ),
+
                       onPressed: () {
                         setState(() {
                           isHidden = !isHidden;
@@ -94,7 +133,7 @@ class _PracticeState extends State<Practice> {
                       },
                     ),
 
-                    labelText: "enter the password",
+                    hintText: "Enter the password",
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -103,10 +142,19 @@ class _PracticeState extends State<Practice> {
                     return null;
                   },
                 ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: SubmitFrom,
-                  child: Text("Submitted "),
+                SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.black,
+                    ),
+
+
+                    onPressed: SubmitFrom,
+                    child: Text("Submitted "),
+                  ),
                 ),
               ],
             ),
@@ -132,3 +180,24 @@ class _PracticeState extends State<Practice> {
 //     return const Placeholder();
 //   }
 // }
+
+
+
+//  designing the dropdown items form field
+
+// DropdownButtonFormField(
+//   borderRadius: BorderRadius.circular(10),
+//
+//   value: SelectedItems,
+//   items: ["female", "male", "others"].map((toElement) {
+//     return DropdownMenuItem(
+//       value: toElement,
+//       child: Text(toElement),
+//     );
+//   }).toList(),
+//   onChanged: (value) {
+//     setState(() {
+//       SelectedItems = value!;
+//     });
+//   },
+// ),
