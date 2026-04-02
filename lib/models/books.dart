@@ -6,7 +6,7 @@ class Books {
   final List<String> authors;
   final String publisher;
   final String publishedDate;
-  final  bool isFavorite;
+  late  bool isFavorite;
   final String description;
   final Map<String, String> industryIdentifiers;
   final int pageCount;

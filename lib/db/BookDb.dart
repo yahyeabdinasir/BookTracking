@@ -8,7 +8,7 @@ class BookDataBase {
   static const _DatabaseName = "bookDatabase.db";
 
   //  the version of the database
-  static const _Databseversion = 1;
+  static const _Databseversion = 2;
 
   // table  name of the database
   static const _TableName = "Books";
@@ -96,6 +96,7 @@ class BookDataBase {
       where: 'favorite = ?',
       whereArgs: [1],
     );
+    print(" is favorite that comes from the db file ${isfavorite}");
     return isfavorite.isNotEmpty
         ? isfavorite
               .map((favotiteBooks) => Books.fromJsonDatabase(favotiteBooks))

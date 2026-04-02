@@ -15,7 +15,7 @@ class _FavoriteFileState extends State<FavoriteFile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<Books>>(
+      body: FutureBuilder(
         future: BookDataBase.instance.ReadFavoriteBooks(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -48,7 +48,7 @@ class _FavoriteFileState extends State<FavoriteFile> {
               },
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: Text("No favorite books yet"));
           }
         },
       ),
